@@ -9,38 +9,39 @@ fs.readFile(jsonFilePath, 'utf8', function readFileCallback(err, data) {
         console.log(err);
     } else {
         jsonData = JSON.parse(data);
-        const properties = new Set(...jsonData.map(row => Object.keys(row)));
+        const properties = new Set(...jsonData.map(row => Object.keys(row).map((prop => { return Buffer.from(prop).toString('base64') }))))
+        console.log(properties)
         jsonData.forEach(element => {
             let addElement = true;
             properties.forEach(property => {
-                const data = element[property];
+                const data = element[Buffer.from(property, 'base64').toString('ascii')];
                 switch (property) {
-                    case 'CrimeId':
+                    case 'Q3JpbWVJZA==':
                         if (!isNumeric(data)) addElement = false
                         break;
-                    case 'OriginalCrimeTypeName':
+                    case 'T3JpZ2luYWxDcmltZVR5cGVOYW1l':
                         if (!isValidString(data)) addElement = false
                         break;
-                    case 'OffenseDate':
+                    case 'T2ZmZW5zZURhdGU=':
                         break;
-                    case 'CallDateTime':
+                    case 'Q2FsbERhdGVUaW1l':
                         break;
-                    case 'Disposition':
+                    case 'RGlzcG9zaXRpb24=':
                         if (data.length != 3 && data != 'Not recorded') addElement = false
                         break;
-                    case 'Address':
+                    case 'QWRkcmVzcw==':
                         break;
-                    case 'City':
+                    case 'Q2l0eQ==':
                         if (!isValidString(data)) addElement = false
                         break;
-                    case 'State':
+                    case 'U3RhdGU=':
                         if (!isValidString(data)) addElement = false
                         if (data.length != 2) addElement = false
                         break;
-                    case 'AgencyId':
+                    case 'QWdlbmN5SWQ=':
                         if (!isNumeric(data)) addElement = false
                         break;
-                    case 'AddressType':
+                    case 'QWRkcmVzc1R5cGU=':
                         if (!isValidString(data)) addElement = false
                         break;
                     default:
