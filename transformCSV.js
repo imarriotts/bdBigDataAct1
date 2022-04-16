@@ -1,6 +1,6 @@
 const fs = require('fs');
 const csv = require('csvtojson');
-const csvFilePath = 'data.csv'
+const csvFilePath = 'BigDataAct1.txt'
 const jsonFilePath = 'data.json'
 
 csv({ delimiter: ";", })
