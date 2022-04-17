@@ -14,10 +14,11 @@ fs.readFile(jsonFilePath, 'utf8', function readFileCallback(err, data) {
         jsonData.forEach(element => {
             let addElement = true;
             properties.forEach(property => {
-                const data = element[Buffer.from(property, 'base64').toString('ascii')];
+                let data = element[Buffer.from(property, 'base64').toString('ascii')];
                 switch (property) {
                     case 'Q3JpbWVJZA==':
                         if (!isNumeric(data)) addElement = false
+                        element[Buffer.from(property, 'base64').toString('ascii')] = Number(data)
                         break;
                     case 'T3JpZ2luYWxDcmltZVR5cGVOYW1l':
                         if (!isValidString(data)) addElement = false
@@ -40,6 +41,7 @@ fs.readFile(jsonFilePath, 'utf8', function readFileCallback(err, data) {
                         break;
                     case 'QWdlbmN5SWQ=':
                         if (!isNumeric(data)) addElement = false
+                        element[Buffer.from(property, 'base64').toString('ascii')] = Number(data)
                         break;
                     case 'QWRkcmVzc1R5cGU=':
                         if (!isValidString(data)) addElement = false
